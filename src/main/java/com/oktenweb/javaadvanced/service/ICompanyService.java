@@ -8,12 +8,6 @@ public interface ICompanyService {
 
     List<Company> getCompanies();
 
-    Company getCompanyById(int id);
-
     Company save(Company company);
-
-    Company update(Company company);
-
-    void remove(int id);
 
 }

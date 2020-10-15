@@ -19,22 +19,7 @@ public class CompanyService implements ICompanyService{
     }
 
     @Override
-    public Company getCompanyById(int id) {
-        return companyDao.getOne(id);
-    }
-
-    @Override
     public Company save(Company company) {
         return companyDao.save(company);
-    }
-
-    @Override
-    public Company update(Company company) {
-        return companyDao.save(company);
-    }
-
-    @Override
-    public void remove(int id) {
-        companyDao.deleteById(id);
     }
 }

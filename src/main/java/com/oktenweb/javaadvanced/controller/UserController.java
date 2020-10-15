@@ -35,10 +35,11 @@ public class UserController {
         return userService.getUser(id);
     }
 
-    @PostMapping(value = "/company/{companyId}")
+    @PostMapping(value = "/company/{company_id}")
     @ResponseStatus(HttpStatus.CREATED)
-    public UserDTO insertUser(@RequestBody @Valid User user, @PathVariable int companyId){
-        return userService.insertUser(user,companyId);
+    public UserDTO insertMovie(@RequestBody @Valid User user, @PathVariable int company_id){
+        log.info("Handling POST /directors/{" + company_id + "} with object: " + user);
+        return userService.insertUser(user, company_id);
     }
 
     @PutMapping(value = "/{id}")
