@@ -1,13 +1,15 @@
 package com.oktenweb.javaadvanced.controller;
 
+import com.oktenweb.javaadvanced.dto.AuthenticationResponse;
 import com.oktenweb.javaadvanced.dto.UserDTO;
-import com.oktenweb.javaadvanced.entity.Company;
 import com.oktenweb.javaadvanced.entity.User;
-import com.oktenweb.javaadvanced.exception.CapitalLetterException;
 import com.oktenweb.javaadvanced.service.IUserService;
+import com.oktenweb.javaadvanced.service.JwtService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -19,6 +21,12 @@ import java.util.List;
 public class UserController {
 
     private IUserService userService;
+
+    @Autowired
+    private JwtService jwtService;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
     @Autowired
     public UserController(IUserService userService) {
@@ -40,6 +48,12 @@ public class UserController {
     public UserDTO insertMovie(@RequestBody @Valid User user, @PathVariable int company_id){
         log.info("Handling POST /directors/{" + company_id + "} with object: " + user);
         return userService.insertUser(user, company_id);
+    }
+
+    @PostMapping("/authenticate")
+    public AuthenticationResponse generateJWT(@RequestBody AuthRequest authRequest){
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(,authRequest.getUsername, authRequest.getPassword));
+        return new AuthenticationResponse(jwtService.generateToken(authRequest.getUsername()));
     }
 
     @PutMapping(value = "/{id}")
