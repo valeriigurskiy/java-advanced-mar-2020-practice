@@ -1,5 +1,7 @@
 package com.oktenweb.javaadvanced.controller;
 
+import com.oktenweb.javaadvanced.entity.Company;
+import com.oktenweb.javaadvanced.service.CompanyService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +13,7 @@ import java.util.List;
 @Slf4j
 public class CompanyController {
 
-    private ICompanyService companyService;
+    private CompanyService companyService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
